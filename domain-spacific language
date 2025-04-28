@@ -1,0 +1,39 @@
+package main
+
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
+
+func interpret(code string) int {
+	lines := strings.Split(code, "\n") /*разбиваем текст на строки*/
+	resualt := 0
+
+	for _, line := range lines {
+		parts := strings.Fields(line)/*разбиваем строку на части (команда и аргумент)*/
+		if len(parts) != 2 {
+			continue
+		}
+		cmd, argStr := parts[0], parts[1]
+		arg, _ := strconv.Atoi(argStr)/*преобразуем аргумент в число*/
+
+		switch cmd {
+		case "ADD":
+			resualt += arg
+		case "SUB":
+			resualt -= arg
+		}
+	}
+	return resualt
+}
+
+func main() {
+	code := `
+  ADD 5
+  SUB 2
+  ADD 10
+  `
+	fmt.Println(interpret(code))
+
+}
